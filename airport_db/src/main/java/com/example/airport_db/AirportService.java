@@ -17,16 +17,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 
+
 @Service
-public class JsonDataService {
+public class AirportService {
 	 @Autowired
 	    private AirportRepository ar;
-@Autowired
-	 private JsonDataRepository jsonDataRepository;
 
-public List<JsonDataEntity> getAllJsonData() {
-    return jsonDataRepository.findAll();
-}
+
+
 
 public String readJsonFromFileSystem(String filePath) throws IOException {
     byte[] bytes = Files.readAllBytes(Paths.get(filePath));
@@ -52,5 +50,10 @@ for(Airport am:airline) {
     return  new String(bytes, StandardCharsets.UTF_8);
 //    ObjectMapper objectMapper = new ObjectMapper();
 }
-	   
+public List<Airport> getAllAirports() {
+    return ar.findAll();
+}
+public Airport getAirportByCode(String code) {
+    return ar.findByCode(code); // Assuming you have a method findByAirlineCode in your AirlineRepository
+}   
 }
